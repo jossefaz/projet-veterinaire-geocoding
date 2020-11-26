@@ -33,18 +33,23 @@ def generate_adress_list() -> list:
                     elif is_tel(line):
                         line = remove_non_digit(line)
                         address_list_local.insert(0, line)
-
-                print(address_global)
+    return address_global
 
 
 def generate_csv(address_list: list):
     out_csv_path = os.path.join(OUTPUT_DIR, OUTPUT_CSV_NAME)
-    with open(out_csv_path, 'w+', newline='') as file:
+    with open(out_csv_path, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Nom", "Telephonw", "Adresse", "ville", "lat", "lon"])
+        writer.writerow(["Nom", "Telephone", "Adresse", "ville", "lat", "lon"])
+        count = 0
+        total = len(address_list)
         for line in address_list:
-            line.append(get_lat_lon(line[2], line[3]))
+            lat, lon = get_lat_lon(line[2], line[3])
+            line.append(lat)
+            line.append(lon)
             writer.writerow(line)
+            count +=1
+            print("{} / {} adresses".format(count, total))
 
 
 def main():

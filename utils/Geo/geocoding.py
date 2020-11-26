@@ -4,20 +4,19 @@ import requests
 GEOCODE_URL = "https://maps.googleapis.com/maps/api/geocode/"
 RESPONSE_FORMAT = "json"
 
-def generate_params(adress : str, town : str, api_key : str) -> dict:
-    adress = '+'.join(adress)
-    town = '+'.join(town)
+def generate_params(address : str, town : str, api_key : str) -> dict:
+    address = '+'.join(address.split(' '))
+    town = '+'.join(town.split(' '))
     return {
-        "adress" : adress,
-        "town" : town,
+        "address" : '{},{}'.format(address, town),
         "key" : api_key
     }
 
 def get_lat_lon(adress : str, town : str) -> list:
     lat_lon = []
-    try:
-        api_key = args.apikey
-    except :
+    api_key = args.apikey
+
+    if api_key is None :
         print("You did not provid an API key for Google geocoding API, this script will stop !")
         exit(1)
     params = generate_params(adress, town, api_key)
