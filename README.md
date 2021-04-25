@@ -2,7 +2,7 @@
 
 First clone this repository
 
-    git clone https://github.com/yossefaz/projet-veterinaire-geocoding
+    git clone https://github.com/jossefaz/projet-veterinaire-geocoding
 
 ## Input
 
